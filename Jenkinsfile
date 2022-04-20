@@ -14,7 +14,7 @@
         }
         parameters {
         
-        string(name: 'IMAGE_TAG', defaultValue: '', description: '')
+        string(name: 'IMAGE_TAG', defaultValue: 'latest', description: '')
         booleanParam(name: 'PUBLISH', defaultValue: false, description: 'Publish Docker Image?')
 
         }
