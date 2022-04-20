@@ -96,13 +96,7 @@
 
            stage('Build docker image'){
                 steps {
-                    sh "docker build -t public.ecr.aws/m4n3o5v2/demo:${params.IMAGE_TAG} ."
-                }
-            }
-
-            stage('Tag docker image'){
-                steps {
-                    sh "docker tag demo:latest public.ecr.aws/m4n3o5v2/demo:latest"
+                    sh "docker build -t public.ecr.aws/m4n3o5v2/demo:latest ."
                 }
             }
 
@@ -114,7 +108,7 @@
 
                 sh """
                  aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/m4n3o5v2
-                 docker push public.ecr.aws/m4n3o5v2/demo:${params.IMAGE_TAG}
+                 docker push public.ecr.aws/m4n3o5v2/demo:latest
                  """
             }
         }
@@ -172,22 +166,4 @@
 }
 
 
-        // post {
-        //     always {
-        //             publishHTML (target: [
-        //                 allowMissing: true,
-        //                 alwaysLinkToLastBuild: false,
-        //                 keepAll: true,
-        //                 reportDir: 'target/site/jacoco',
-        //                 reportFiles: 'index.html',
-        //                 reportName: "Test Coverage Report"
-        //                 ])
-
-        //             // jacoco runAlways: true
-        //             //  exclusionPattern: '**/com/java/example/demo/,**/classes/com/java/example/demo/*.class'
-
-                
-        //     }
-        // }     
-    
     
