@@ -115,7 +115,7 @@
         stage('Deploy Non-Prod') {
             steps {
                 sh"""
-                    # Deployment steps like ansible playbook
+                    ansible-playbook demo_deploy.yml  -i inventory -u ec2-user
                 """
             }
         }

@@ -1,0 +1,10 @@
+---
+# tasks file for service-deploy
+- name: Login to ECR
+  shell: eval $(aws ecr get-login --region eu-east-1)
+
+- name: Pull docker image
+  command: docker pull public.ecr.aws/m4n3o5v2/demo:latest
+
+- name: Create and deploy service in swarm
+  command: docker service create --name demo --replicas 2 --update-delay 5s public.ecr.aws/m4n3o5v2/demo:latest
