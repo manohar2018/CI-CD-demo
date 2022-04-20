@@ -1,5 +1,8 @@
 ---
 # tasks file for service-deploy
+- name: delete service in swarm
+  command: docker service delete --name demo
+
 - name: Login to ECR
   shell: eval $(aws ecr get-login --region eu-east-1)
 
