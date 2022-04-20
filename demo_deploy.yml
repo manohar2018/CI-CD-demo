@@ -1,6 +1,6 @@
 ---
 - name: demo-deployment
-  hosts: {{cur_env}}
+  hosts: "{{cur_env}}"
   become: true
   become_user: ec2-user
   roles:
