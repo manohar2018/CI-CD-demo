@@ -94,7 +94,7 @@
                 }
             }
 
-            stage('Build docker image'){
+           stage('Build docker image'){
                 steps {
                     sh "docker build -t public.ecr.aws/m4n3o5v2/demo:${params.IMAGE_TAG} ."
                 }
