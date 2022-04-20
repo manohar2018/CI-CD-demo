@@ -101,9 +101,9 @@
             }
 
             stage("Publish Docker Image") {
-            when {
-                expression { return params.PUBLISH }
-            }
+            // when {
+            //     expression { return params.PUBLISH }
+            // }
             steps {
 
                 sh """
@@ -112,12 +112,6 @@
                  """
             }
         }
-      }
-    }  
-        pipeline {
-    agent any
-
-    stages {
         stage('Deploy Non-Prod') {
             steps {
                 sh"""
@@ -162,8 +156,9 @@
                 """
             }
         }
-    }
-}
+      }
+    }  
+        
 
 
     
