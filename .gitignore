@@ -1,1 +1,2 @@
 ## below to exclude from git commit
+.DS_Store
