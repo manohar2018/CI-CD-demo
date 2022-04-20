@@ -115,7 +115,7 @@
         stage('Deploy Non-Prod') {
             steps {
                 sh"""
-                    ansible-playbook demo_deploy.yml  -i inventory -u ec2-user
+                    ansible-playbook demo_deploy.yml  -i inventory -u ec2-user --extra-vars "cur_env=dev"
                 """
             }
         }
@@ -145,7 +145,7 @@
             }
             steps {
                 sh"""
-                    # Script to check the sanity/health endpoint & to invoke tsuit
+                    ansible-playbook demo_deploy.yml  -i inventory -u ec2-user --extra-vars "cur_env=prod"
                 """
             }
         }
