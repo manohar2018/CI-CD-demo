@@ -120,7 +120,57 @@
         }
       }
     }  
-        
+        pipeline {
+    agent any
+
+    stages {
+        stage('Deploy Non-Prod') {
+            steps {
+                sh"""
+                    # Deployment steps like ansible playbook
+                """
+            }
+        }
+        stage('Test Non-Prod') {
+            steps {
+                sh"""
+                    # Script to check the sanity/health endpoint & to invoke tsuit
+                """
+            }
+        }
+        stage('Approve Prod Deployment') {
+            steps {
+                script{
+                    userInput = input(
+                        id: 'Approve', message: 'Deploy to production?', parameters: [
+                        [$class: 'BooleanParameterDefinition', defaultValue: true, description: '', name: 'Please confirm you agree with this']
+                        ])
+                }
+                sh"""
+                    # Script to check the sanity/health endpoint & to invoke tsuit
+                """
+            }
+        }
+        stage('Prod Deployment') {
+            when {
+                expression { userInput == true }
+            }
+            steps {
+                sh"""
+                    # Script to check the sanity/health endpoint & to invoke tsuit
+                """
+            }
+        }
+        stage('Test Prod') {
+            steps {
+                sh"""
+                    # Script to check the sanity/health endpoint & to invoke tsuit
+                """
+            }
+        }
+    }
+}
+
 
         // post {
         //     always {
