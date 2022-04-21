@@ -49,19 +49,19 @@
             }
             
 
-            stage("Sonar Quality Gate") {
-                // when {
-                //     anyOf {
-                //         branch 'main';
-                //         changeRequest()
-                //     }
-                // }
-                steps {
-                    timeout(time: 1, unit: 'MINUTES') {
-                        waitForQualityGate abortPipeline: false
-                    }
-                }
-            }
+            // stage("Sonar Quality Gate") {
+            //     // when {
+            //     //     anyOf {
+            //     //         branch 'main';
+            //     //         changeRequest()
+            //     //     }
+            //     // }
+            //     steps {
+            //         timeout(time: 1, unit: 'MINUTES') {
+            //             waitForQualityGate abortPipeline: false
+            //         }
+            //     }
+            // }
 
             stage('UnitTest'){
                 steps {
