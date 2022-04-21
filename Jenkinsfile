@@ -96,7 +96,7 @@
                         local_version=${version[1]}
                         curl -v \
                         --upload-file "${file_path}" \
-                        -u $USERNAME:$PASSWORD \
+                        -u USERNAME:PASSWORD \
                         'http://54.226.160.52/:8081/repository/Demo-ci-cd/demo-grp/'"${artifact}/${public_version}/${artifact}-${public_version}"'.jar'
                         
                         '''
