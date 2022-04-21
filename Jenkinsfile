@@ -77,6 +77,15 @@
             stage('Packaging and upload to Nexus'){
                 steps {
                     println "[INFO]  Packaging the artifact and upload to nexus"
+                    withCredentials([usernamePassword(credentialsId: 'nexus', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                   // available as an env variable, but will be masked if you try to print it out any which way
+                  // note: single quotes prevent Groovy interpolation; expansion is by Bourne Shell, which is what you want
+                 sh 'echo $PASSWORD'
+                // also available as a Groovy variable
+                echo USERNAME
+                // or inside double quotes for string interpolation
+               echo "username is $USERNAME"
+            }
                     sh '''
                         file_path=$(find ${WORKSPACE}/demo/target/ -name *.jar)
                         file=$(basename ${file_path})
@@ -87,8 +96,8 @@
                         local_version=${version[1]}
                         curl -v \
                         --upload-file "${file_path}" \
-                        -u admin:Manohar123$ \
-                        'http://54.82.52.61:8081/repository/Demo-ci-cd/demo-grp/'"${artifact}/${public_version}/${artifact}-${public_version}"'.jar'
+                        -u $USERNAME:$PASSWORD \
+                        'http://54.226.160.52/:8081/repository/Demo-ci-cd/demo-grp/'"${artifact}/${public_version}/${artifact}-${public_version}"'.jar'
                         
                         '''
                 }
