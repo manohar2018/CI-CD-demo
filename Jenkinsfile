@@ -48,20 +48,19 @@
                 }
             }
             
-
-            // stage("Sonar Quality Gate") {
-            //     // when {
-            //     //     anyOf {
-            //     //         branch 'main';
-            //     //         changeRequest()
-            //     //     }
-            //     // }
-            //     steps {
-            //         timeout(time: 1, unit: 'MINUTES') {
-            //             waitForQualityGate abortPipeline: false
-            //         }
-            //     }
-            // }
+            stage("Sonar Quality Gate") {
+                when {
+                    anyOf {
+                        branch 'main';
+                        changeRequest()
+                    }
+                }
+                steps {
+                    timeout(time: 1, unit: 'MINUTES') {
+                        waitForQualityGate abortPipeline: true
+                    }
+                }
+            }
 
             stage('UnitTest'){
                 steps {
@@ -78,14 +77,6 @@
                 steps {
                     println "[INFO]  Packaging the artifact and upload to nexus"
                     withCredentials([usernamePassword(credentialsId: 'nexus', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-                   // available as an env variable, but will be masked if you try to print it out any which way
-                  // note: single quotes prevent Groovy interpolation; expansion is by Bourne Shell, which is what you want
-                 sh 'echo $PASSWORD'
-                // also available as a Groovy variable
-                echo USERNAME
-                // or inside double quotes for string interpolation
-               echo "username is $USERNAME"
-            
                     sh '''
                         file_path=$(find ${WORKSPACE}/demo/target/ -name *.jar)
                         file=$(basename ${file_path})
