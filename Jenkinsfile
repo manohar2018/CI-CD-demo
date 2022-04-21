@@ -85,7 +85,7 @@
                 echo USERNAME
                 // or inside double quotes for string interpolation
                echo "username is $USERNAME"
-            }
+            
                     sh '''
                         file_path=$(find ${WORKSPACE}/demo/target/ -name *.jar)
                         file=$(basename ${file_path})
@@ -101,6 +101,7 @@
                         
                         '''
                 }
+            }
             }
 
            stage('Build docker image'){
